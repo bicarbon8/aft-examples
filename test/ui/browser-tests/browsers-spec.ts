@@ -1,6 +1,9 @@
 import { TestWrapperOptions, TestWrapper, using, Wait } from "aft-core";
 import { ISessionGenerator, ContainerOptions } from "aft-ui";
 import { HerokuLoginPage } from "./page-objects/heroku-login-page";
+import 'aft-ui-selenium/dist/src/sessions/browserstack/browserstack-session-generator';
+import 'aft-logging-awskinesis/dist/src/kinesis-logging-plugin';
+import 'aft-testrail/dist/src/logging/testrail-logging-plugin';
 
 describe('Functional Browser Tests using AFT-UI', () => {
     beforeAll(() => {
@@ -14,24 +17,26 @@ describe('Functional Browser Tests using AFT-UI', () => {
             await using(await ISessionGenerator.get(), async (session) => {
                 let loginPage: HerokuLoginPage = new HerokuLoginPage(new ContainerOptions(session));
                 await tw.check('C1234', async () => {
-                    tw.logger.step('navigate to LoginPage');
+                    await tw.logger.step('navigate to LoginPage');
                     await loginPage.navigateTo();
                 });
                 
                 await tw.check('C2345', async () => {
-                    tw.logger.step('login');
+                    await tw.logger.step('login');
                     await loginPage.login("tomsmith", "SuperSecretPassword!");
                 });
 
+                let message: string;
                 await tw.check('C3456', async () => {
-                    tw.logger.step('wait for message to appear...')
+                    await tw.logger.step('wait for message to appear...')
                     await Wait.forCondition(() => loginPage.hasMessage(), 20000);
                     
-                    tw.logger.step('get message');
-                    let message: string = await loginPage.getMessage();
+                    await tw.logger.step('get message');
+                    message = await loginPage.getMessage();
                     
-                    tw.logger.info("message of '" + message + "' found");
-                    expect(message).toContain("You logged into a secure area!");
+                    if (!expect(message).toContain("You flogged into a secure area!")) {
+                        throw new Error(`incorrect message found after login attempt: '${message}'`);
+                    }
                 });
             });
         });

@@ -1,0 +1,45 @@
+{
+  "name": "aft-examples",
+  "version": "1.0.0",
+  "description": "Automation Framework for Testing (AFT) package containing examples of how it can be used",
+  "scripts": {
+    "build": "tsc --declaration",
+    "pretest": "tsc",
+    "test": "jasmine JASMINE_CONFIG_PATH=./jasmine.json",
+    "prepare": "tsc --declaration"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bicarbon8/aft-examples.git"
+  },
+  "keywords": [
+    "aft",
+    "automation",
+    "e2e",
+    "integration",
+    "functional",
+    "ui",
+    "logging",
+    "test",
+    "examples"
+  ],
+  "author": "Jason Holt Smith <bicarbon8@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bicarbon8/aft-examples/issues"
+  },
+  "homepage": "https://github.com/bicarbon8/aft-examples#readme",
+  "devDependencies": {
+    "@types/jasmine": "3.4.6",
+    "@types/node": "12.12.7",
+    "@types/selenium-webdriver": "4.0.5",
+    "jasmine": "3.5.0",
+    "typescript": "3.7.2"
+  },
+  "dependencies": {
+    "aft-logging-awskinesis": "git+https://github.com/bicarbon8/aft-logging-awskinesis.git",
+    "aft-testrail": "git+https://github.com/bicarbon8/aft-testrail.git",
+    "aft-ui-selenium": "git+https://github.com/bicarbon8/aft-ui-selenium.git",
+    "es6-promise": "4.2.8"
+  }
+}

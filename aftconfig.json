@@ -1,0 +1,18 @@
+{
+    "testloglevel": "trace",
+    "test_platform": "windows_10_chrome",
+    "session_provider": "BrowserStackSession",
+    "browserstack_user": "",
+    "browserstack_accesskey": "",
+    "testrail_write": "",
+    "testrail_user": "",
+    "testrail_encoded_pass": "",
+    "testrail_planid": "",
+    "kinesisfirehose_enabled": "",
+    "kinesisfirehose_regionendpoint": "",
+    "kinesisfirehose_deliverystream": "",
+    "aws_credential_retrieval": "config",
+    "aws_access_key_id": "",
+    "aws_secret_access_key": "",
+    "aws_session_token": ""
+}

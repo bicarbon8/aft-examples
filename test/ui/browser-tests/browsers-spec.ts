@@ -1,4 +1,4 @@
-import { TestWrapperOptions, TestWrapper, using, Wait } from "aft-core";
+import { TestWrapperOptions, TestWrapper, using, Wait, should } from "aft-core";
 import { ISessionGenerator, ContainerOptions } from "aft-ui";
 import { HerokuLoginPage } from "./page-objects/heroku-login-page";
 import 'aft-ui-selenium/dist/src/sessions/browserstack/browserstack-session-generator';
@@ -34,9 +34,8 @@ describe('Functional Browser Tests using AFT-UI', () => {
                     await tw.logger.step('get message');
                     message = await loginPage.getMessage();
                     
-                    if (!expect(message).toContain("You flogged into a secure area!")) {
-                        throw new Error(`incorrect message found after login attempt: '${message}'`);
-                    }
+                    should(() => expect(message).toContain("You logged into a secure area!"))
+                    .because(`we were supposed to be logged in: '${message}'`);
                 });
             });
         });

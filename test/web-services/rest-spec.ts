@@ -1,4 +1,4 @@
-import { TestWrapperOptions, using, TestWrapper } from "aft-core";
+import { TestWrapperOptions, using, TestWrapper, should } from "aft-core";
 import { HttpRequest, HttpResponse, HttpService } from 'aft-web-services';
 import { ListUsersResponse } from "./response-objects/list-users-response";
 import 'aft-logging-awskinesis/dist/src/kinesis-logging-plugin';
@@ -25,28 +25,20 @@ describe('REST Request', () => {
 
             await tw.check('C3131', async () => {
                 await tw.logger.step('confirm response is not null...');
-                if (!expect(response).not.toBeNull()) {
-                    throw new Error('unexpected response of null returned');
-                }
+                should(() => expect(response).not.toBeNull()).because('a valid response object was expected');
                 await tw.logger.info('confirmed response is not null.');
                 await tw.logger.step('confirm response.data is not null...');
-                if (!expect(response.data).not.toBeNull()) {
-                    throw new Error('unexpected response.data of null found');
-                }
+                should(() => expect(response.data).not.toBeNull()).because('a valid response.data was expected');
                 await tw.logger.info('confirmed response.data is not null.');
             });
 
             await tw.check('C2217764', async () => {
                 await tw.logger.step('confirm can deserialise response.data into typed object...');
                 let obj: ListUsersResponse = response.dataAs<ListUsersResponse>();
-                if (!expect(obj).not.toBeNull()) {
-                    throw new Error('unexpected ListUsersResponse of null returned');
-                }
+                should(() => expect(obj).not.toBeNull()).because('deserialisation of response.data into ListUsersResponse should work');
                 await tw.logger.info('confirmed can deserialise response.data into typed object.');
                 await tw.logger.step('confirm object data property contains more than one result...');
-                if (!expect(obj.data.length).toBeGreaterThan(0)) {
-                    throw new Error('unexpected number of users returned');
-                }
+                should(() => expect(obj.data.length).toBeGreaterThan(0)).because('the api should always return users');
                 await tw.logger.info('confirmed object data property contains more than one result.');
             });
         });

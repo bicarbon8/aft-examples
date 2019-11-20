@@ -1,22 +1,27 @@
-import { Page, ContainerOptions } from 'aft-ui';
+import { AbstractPage, ContainerOptions, ISession } from 'aft-ui';
 import { HerokuContentWidget } from './heroku-content-widget';
 import { HerokuMessagesWidget } from './heroku-messages-widget';
 
-export class HerokuLoginPage extends Page {
+export class HerokuLoginPage extends AbstractPage {
     /* begin: widgets */
     private async content(): Promise<HerokuContentWidget> {
         return await this.getWidget(HerokuContentWidget);
     }
     private async messages(): Promise<HerokuMessagesWidget> {
-        let wo: ContainerOptions = new ContainerOptions(this.session);
+        let wo: ContainerOptions = new ContainerOptions(this.parent);
         wo.maxWaitMs = 20000;
         return await this.getWidget(HerokuMessagesWidget, wo);
     }
     /* end: widgets */
 
     async navigateTo(): Promise<void> {
-        await this.session.goTo('https://the-internet.herokuapp.com/login');
-        return await this.waitUntilDoneLoading();
+        try {
+            let session: ISession = this.parent as ISession;
+            await session.goTo('https://the-internet.herokuapp.com/login');
+            return await this.waitUntilDoneLoading();
+        } catch (e) {
+            return Promise.reject(e);
+        }
     }
 
     async isDoneLoading(): Promise<boolean> {

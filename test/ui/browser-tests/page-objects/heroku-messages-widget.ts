@@ -1,6 +1,6 @@
-import { Widget, FacetLocator, IFacet } from "aft-ui";
+import { AbstractWidget, FacetLocator, IFacet } from "aft-ui";
 
-export class HerokuMessagesWidget extends Widget {
+export class HerokuMessagesWidget extends AbstractWidget {
     locator: FacetLocator = FacetLocator.id("flash-messages");
 
     private async message(): Promise<IFacet> {

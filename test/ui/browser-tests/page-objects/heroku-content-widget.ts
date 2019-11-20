@@ -1,6 +1,6 @@
-import { Widget, FacetLocator, IFacet } from 'aft-ui';
+import { AbstractWidget, FacetLocator, IFacet } from 'aft-ui';
 
-export class HerokuContentWidget extends Widget {
+export class HerokuContentWidget extends AbstractWidget {
     locator: FacetLocator = FacetLocator.id("content");
 
     private async usernameInput(): Promise<IFacet> {

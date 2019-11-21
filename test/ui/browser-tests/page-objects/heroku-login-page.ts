@@ -4,10 +4,10 @@ import { HerokuMessagesWidget } from './heroku-messages-widget';
 
 export class HerokuLoginPage extends AbstractPage {
     /* begin: widgets */
-    private async content(): Promise<HerokuContentWidget> {
+    async content(): Promise<HerokuContentWidget> {
         return await this.getWidget(HerokuContentWidget);
     }
-    private async messages(): Promise<HerokuMessagesWidget> {
+    async messages(): Promise<HerokuMessagesWidget> {
         let wo: ContainerOptions = new ContainerOptions(this.parent);
         wo.maxWaitMs = 20000;
         return await this.getWidget(HerokuMessagesWidget, wo);

@@ -34,12 +34,16 @@ export class HerokuContentWidget extends AbstractWidget {
         await ui.text(username);
         let pi: IFacet = await this.passwordInput();
         await pi.text(password);
-        return this.clickSearchButton();
+        return this.clickLoginButton();
     }
 
-    async clickSearchButton(): Promise<void> {
+    async clickLoginButton(): Promise<void> {
         /* TODO: add logging */
         let lb: IFacet = await this.loginButton();
         return lb.click();
+    }
+
+    async getLoginButton(): Promise<IFacet> {
+        return await this.loginButton();
     }
 }

@@ -46,8 +46,7 @@ describe('Functional Browser Tests using AFT-UI', () => {
         });
     });
 
-    // currently broken :(
-    xit('can recover from StaleElementExceptions automatically', async () => {
+    it('can recover from StaleElementExceptions automatically', async () => {
         let opts: TestWrapperOptions = new TestWrapperOptions('can recover from StaleElementExceptions automatically');
         opts.testCases.addRange('C4567', 'C5678', 'C6789', 'C7890');
         await using(new TestWrapper(opts), async (tw) => {

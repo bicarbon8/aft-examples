@@ -76,7 +76,7 @@ describe('Functional Browser Tests using AFT-UI', () => {
 
                 await tw.check('C7890', async () => {
                     await tw.logger.step('click login button');
-                    button.click();
+                    await button.click();
                     await tw.logger.info('no exception thrown on click');
                 });
             });

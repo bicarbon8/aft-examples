@@ -1,4 +1,4 @@
-import { TestWrapperOptions, TestWrapper, using, Wait, should, TestLog, TestLogOptions } from "aft-core";
+import { TestWrapperOptions, TestWrapper, using, Wait, should } from "aft-core";
 import { ISessionGenerator, ContainerOptions, SessionOptions, IFacet } from "aft-ui";
 import { HerokuLoginPage } from "./page-objects/heroku-login-page";
 import 'aft-ui-selenium/dist/src/sessions/browserstack/browserstack-session-generator';

@@ -1,11 +1,9 @@
-import { TestWrapperOptions, TestWrapper, using, Wait, should } from "aft-core";
+import { TestWrapperOptions, TestWrapper, using, Wait, should, TestLog, TestLogOptions } from "aft-core";
 import { ISessionGenerator, ContainerOptions, SessionOptions, IFacet } from "aft-ui";
-import { AbstractGridSession } from "aft-ui-selenium";
 import { HerokuLoginPage } from "./page-objects/heroku-login-page";
 import 'aft-ui-selenium/dist/src/sessions/browserstack/browserstack-session-generator';
 import 'aft-logging-awskinesis/dist/src/kinesis-logging-plugin';
 import 'aft-testrail/dist/src/logging/testrail-logging-plugin';
-import { HerokuContentWidget } from "./page-objects/heroku-content-widget";
 
 describe('Functional Browser Tests using AFT-UI', () => {
     beforeAll(() => {
@@ -64,7 +62,7 @@ describe('Functional Browser Tests using AFT-UI', () => {
                 await tw.check('C5678', async () => {
                     await tw.logger.step('click login button');
                     button = await loginPage.content().then((c) => c.getLoginButton());
-                    button.click();
+                    await button.click();
                     await tw.logger.info('no exception thrown on click');
                 });
 

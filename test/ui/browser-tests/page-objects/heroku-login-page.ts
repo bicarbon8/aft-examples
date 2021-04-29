@@ -1,31 +1,30 @@
-import { AbstractPage, ContainerOptions, ISession } from 'aft-ui';
+import { By, Locator } from 'selenium-webdriver';
+import { SeleniumFacet } from '../../../../aft-ui-selenium/src';
 import { HerokuContentWidget } from './heroku-content-widget';
 import { HerokuMessagesWidget } from './heroku-messages-widget';
 
-export class HerokuLoginPage extends AbstractPage {
+export class HerokuLoginPage extends SeleniumFacet {
+    /**
+     * this Facet sets a static locator instead of using a passed
+     * in value on the constructor
+     */
+    readonly locator: Locator = By.css('html');
+
     /* begin: widgets */
     async content(): Promise<HerokuContentWidget> {
-        return await this.getWidget(HerokuContentWidget);
+        return await this.getFacet(HerokuContentWidget);
     }
     async messages(): Promise<HerokuMessagesWidget> {
-        let wo: ContainerOptions = new ContainerOptions(this.parent);
-        wo.maxWaitMs = 20000;
-        return await this.getWidget(HerokuMessagesWidget, wo);
+        return await this.getFacet(HerokuMessagesWidget, {maxWaitMs: 20000});
     }
     /* end: widgets */
 
     async navigateTo(): Promise<void> {
         try {
-            let session: ISession = this.parent as ISession;
-            await session.goTo('https://the-internet.herokuapp.com/login');
-            return await this.waitUntilDoneLoading();
+            await this.session.goTo('https://the-internet.herokuapp.com/login');
         } catch (e) {
             return Promise.reject(e);
         }
-    }
-
-    async isDoneLoading(): Promise<boolean> {
-        return await this.content().then((c) => c.isDoneLoading());
     }
 
     /* begin: page actions */

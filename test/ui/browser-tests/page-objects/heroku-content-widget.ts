@@ -1,49 +1,43 @@
-import { AbstractWidget, FacetLocator, IFacet } from 'aft-ui';
+import { By, Locator, WebElement } from 'selenium-webdriver';
+import { SeleniumFacet } from '../../../../aft-ui-selenium/src';
 
-export class HerokuContentWidget extends AbstractWidget {
-    locator: FacetLocator = FacetLocator.id("content");
+export class HerokuContentWidget extends SeleniumFacet {
+    /**
+     * this Facet sets a static locator instead of using a passed
+     * in value on the constructor
+     */
+    readonly locator: Locator = By.id('content');
 
-    private async usernameInput(): Promise<IFacet> {
-        return this.findFirst(FacetLocator.id("username"));
+    private async usernameInput(): Promise<WebElement> {
+        return await this.getElement({ locator: By.id("username") });
     }
-    private async passwordInput(): Promise<IFacet> {
-        return this.findFirst(FacetLocator.id("password"));
+    private async passwordInput(): Promise<WebElement> {
+        return await this.getElement({ locator: By.id('password') });
     }
-    private async loginButton(): Promise<IFacet> {
-        return this.findFirst(FacetLocator.css("button.radius"));
-    }
-    
-    async isDoneLoading(): Promise<boolean> {
-        let ui: IFacet = await this.usernameInput();
-        let pi: IFacet = await this.passwordInput();
-        let lb: IFacet = await this.loginButton();
-        let uiDisplayed: boolean = await ui.displayed();
-        let piDisplayed: boolean = await pi.displayed();
-        let lbDisplayed: boolean = await lb.displayed();
-        
-        if (uiDisplayed && piDisplayed && lbDisplayed) {
-            return Promise.resolve(true);
-        }
-
-        return Promise.reject("uiDisplayed: '" + uiDisplayed + "'; piDisplayed: '" + piDisplayed + "'; lbDisplayed: '" + lbDisplayed + "'");
+    private async loginButton(): Promise<WebElement> {
+        return await this.getElement({ locator: By.css('button.radius') });
     }
 
     async login(username: string, password: string): Promise<void> {
-        /* TODO: add logging */
-        let ui: IFacet = await this.usernameInput();
-        await ui.text(username);
-        let pi: IFacet = await this.passwordInput();
-        await pi.text(password);
-        return this.clickLoginButton();
+        let ui: WebElement = await this.usernameInput();
+        await this.logMgr.info(`sending ${username} to the Username Input`);
+        await ui.sendKeys(username);
+        await this.logMgr.info('username entered');
+        let pi: WebElement = await this.passwordInput();
+        await this.logMgr.info(`sending ${password} to the Password Input`);
+        await pi.sendKeys(password);
+        await this.logMgr.info('password entered');
+        await this.clickLoginButton();
     }
 
     async clickLoginButton(): Promise<void> {
-        /* TODO: add logging */
-        let lb: IFacet = await this.loginButton();
-        return lb.click();
+        await this.logMgr.info('clicking Login Button...');
+        let lb: WebElement = await this.loginButton();
+        await lb.click();
+        await this.logMgr.info('Login Button clicked');
     }
 
-    async getLoginButton(): Promise<IFacet> {
+    async getLoginButton(): Promise<WebElement> {
         return await this.loginButton();
     }
 }

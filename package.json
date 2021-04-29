@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Automation Framework for Testing (AFT) package containing examples of how it can be used",
   "scripts": {
-    "build": "tsc --declaration",
-    "pretest": "tsc",
-    "test": "jasmine JASMINE_CONFIG_PATH=./jasmine.json",
-    "prepare": "tsc --declaration"
+    "clean": "rimraf ./dist",
+    "build": "npm run clean && tsc --declaration",
+    "pretest": "npm run build",
+    "test": "./node_modules/.bin/jasmine JASMINE_CONFIG_PATH=./jasmine.json",
+    "coverage": "nyc npm run test"
   },
   "repository": {
     "type": "git",
@@ -37,9 +38,14 @@
     "typescript": "3.7.2"
   },
   "dependencies": {
-    "aft-logging-awskinesis": "1.0.0",
-    "aft-testrail": "1.0.0",
-    "aft-ui-selenium": "1.0.0",
-    "es6-promise": "4.2.8"
+    "aws-sdk": "^2.889.0",
+    "colors": "^1.4.0",
+    "es6-promise": "4.2.8",
+    "lodash": "^4.17.21",
+    "rimraf": "^3.0.2",
+    "selenium-webdriver": "^4.0.0-beta.3",
+    "ts-simple-nameof": "^1.3.1",
+    "uuid": "^8.3.2",
+    "xmldom": "^0.6.0"
   }
 }

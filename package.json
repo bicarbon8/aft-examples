@@ -1,7 +1,7 @@
 {
   "name": "aft-examples",
-  "version": "1.0.0",
-  "description": "Automation Framework for Testing (AFT) package containing examples of how it can be used",
+  "version": "4.0.0",
+  "description": "Automated Functional Testing (AFT) package containing examples of how it can be used",
   "scripts": {
     "clean": "rimraf ./dist",
     "build": "npm run clean && tsc --declaration",
@@ -35,17 +35,14 @@
     "@types/node": "12.12.7",
     "@types/selenium-webdriver": "4.0.5",
     "jasmine": "3.5.0",
+    "nyc": "^15.1.0",
+    "rimraf": "^3.0.2",
     "typescript": "3.7.2"
   },
   "dependencies": {
-    "aws-sdk": "^2.889.0",
-    "colors": "^1.4.0",
-    "es6-promise": "4.2.8",
-    "lodash": "^4.17.21",
-    "rimraf": "^3.0.2",
-    "selenium-webdriver": "^4.0.0-beta.3",
-    "ts-simple-nameof": "^1.3.1",
-    "uuid": "^8.3.2",
-    "xmldom": "^0.6.0"
+    "aft-logging-awskinesis": "^4.0.0",
+    "aft-testrail": "^4.0.0",
+    "aft-ui-selenium": "^4.0.0",
+    "es6-promise": "4.2.8"
   }
 }

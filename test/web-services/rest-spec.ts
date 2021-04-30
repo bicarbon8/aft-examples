@@ -1,5 +1,5 @@
-import { should } from "../../aft-core/src";
-import { HttpResponse, HttpService } from '../../aft-web-services/src';
+import { should } from "aft-core";
+import { HttpResponse, HttpService } from 'aft-web-services';
 import { ListUsersResponse } from "./response-objects/list-users-response";
 
 describe('REST Request', () => {

@@ -1,5 +1,5 @@
 import { By, Locator, WebElement } from 'selenium-webdriver';
-import { SeleniumFacet } from '../../../../aft-ui-selenium/src';
+import { SeleniumFacet } from 'aft-ui-selenium';
 
 export class HerokuContentWidget extends SeleniumFacet {
     /**

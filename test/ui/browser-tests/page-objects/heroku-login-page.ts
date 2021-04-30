@@ -1,5 +1,5 @@
 import { By, Locator } from 'selenium-webdriver';
-import { SeleniumFacet } from '../../../../aft-ui-selenium/src';
+import { SeleniumFacet } from 'aft-ui-selenium';
 import { HerokuContentWidget } from './heroku-content-widget';
 import { HerokuMessagesWidget } from './heroku-messages-widget';
 

@@ -1,6 +1,5 @@
-import { wait } from "../../../aft-core/src";
-import { BrowserTestWrapper } from "../../../aft-ui-selenium/src";
-import { browserShould } from "../../../aft-ui-selenium/src/wrappers/browser-should";
+import { wait } from "aft-core";
+import { BrowserTestWrapper, browserShould } from "aft-ui-selenium";
 import { HerokuLoginPage } from "./page-objects/heroku-login-page";
 
 describe('Functional Browser Tests using AFT-UI', () => {

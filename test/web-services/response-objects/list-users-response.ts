@@ -1,6 +1,6 @@
 import { User } from "./user";
 
-export class ListUsersResponse {
+export interface ListUsersResponse {
     page: number;
     per_page: number;
     total: number;

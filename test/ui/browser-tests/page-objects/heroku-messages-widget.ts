@@ -1,31 +1,34 @@
-import { AbstractWidget, FacetLocator, IFacet } from "aft-ui";
+import { By, Locator, WebElement } from "selenium-webdriver";
+import { SeleniumFacet } from "aft-ui-selenium";
 
-export class HerokuMessagesWidget extends AbstractWidget {
-    locator: FacetLocator = FacetLocator.id("flash-messages");
+export class HerokuMessagesWidget extends SeleniumFacet {
+    /**
+     * this Facet sets a static locator instead of using a passed
+     * in value on the constructor
+     */
+    readonly locator: Locator = By.id('flash-messages');
 
-    private async message(): Promise<IFacet> {
-        return this.findFirst(FacetLocator.id("flash"));
+    private async message(): Promise<WebElement> {
+        let elements: WebElement[] = await this.getElements({ locator: By.id('flash') });
+        return elements[0];
     }
     
-    async isDoneLoading(): Promise<boolean> {
-        return this.hasMessage();
-    }
-
     async hasMessage(): Promise<boolean> {
-        try {
-            let el: IFacet = await this.message();
-            return Promise.resolve(el !== undefined);
-        } catch (e) {
-            return Promise.resolve(false);
-        }
+        return await this.message()
+        .then((message) => {
+            return message !== undefined;
+        }).catch((err: Error) => {
+            return false;
+        });
     }
 
     async getMessage(): Promise<string> {
-        let exists: boolean = await this.hasMessage();
-        if (exists) {
-            let el: IFacet = await this.message();
-            return el.text();
+        if (await this.hasMessage()) {
+            return await this.message()
+            .then((message) => {
+                return message.getText();
+            });
         }
-        return Promise.reject("no message could be found");
+        return null;
     }
 }

@@ -1,18 +1,49 @@
 {
-    "testloglevel": "trace",
-    "test_platform": "windows_10_chrome",
-    "session_provider": "BrowserStackSession",
-    "browserstack_user": "",
-    "browserstack_accesskey": "",
-    "testrail_write": "",
-    "testrail_user": "",
-    "testrail_encoded_pass": "",
-    "testrail_planid": "",
-    "kinesisfirehose_enabled": "",
-    "kinesisfirehose_regionendpoint": "",
-    "kinesisfirehose_deliverystream": "",
-    "aws_credential_retrieval": "config",
-    "aws_access_key_id": "",
-    "aws_secret_access_key": "",
-    "aws_session_token": ""
+    "loggingpluginmanager": {
+        "level": "info",
+        "pluginNames": [
+            "console-logging-plugin",
+            "testrail-logging-plugin",
+            "kinesis-logging-plugin"
+        ]
+    },
+    "testcasepluginmanager": {
+        "pluginNames": ["testrail-test-case-plugin"]
+    },
+    "testrailconfig": {
+        "url": "%testrail_url%",
+        "user": "%testrail_user%",
+        "access_key": "%testrail_pass%",
+        "project_id": 3,
+        "suite_ids": [744]
+    },
+    "testrailloggingplugin": {
+        "enabled": false,
+        "level": "warn"
+    },
+    "testrailtestcaseplugin": {
+        "enabled": false
+    },
+    "kinesisconfig": {
+        "accessKeyId": "%AWS_ACCESS_KEY_ID%",
+        "secretAccessKey": "%AWS_SECRET_ACCESS_KEY%",
+        "sessionToken": "%AWS_SESSION_TOKEN%",
+        "authenticationType": "config"
+    },
+    "kinesisloggingplugin": {
+        "enabled": false,
+        "level": "trace"
+    },
+    "sessiongeneratorpluginmanager": {
+        "pluginNames": ["browserstack-session-generator-plugin"]
+    },
+    "browserstacksessiongeneratorplugin": {
+        "user": "%browserstack_user%",
+        "key": "%browserstack_key%",
+        "platform": {
+            "os": "windows",
+            "osVersion": "10",
+            "browser": "chrome"
+        }
+    }
 }
